@@ -25,12 +25,14 @@ const optionsEl = document.getElementById("options");
 const nextBtn = document.getElementById("next-btn");
 const resultEl = document.getElementById("result");
 const scoreEl = document.getElementById("score");
+const feedbackEl = document.getElementById("feedback")
 
 function loadQuestion() {
     const q = questions[currentQuestion];
     questionEl.textContent = q.question;
 
     optionsEl.innerHTML = "";
+    feedbackEl.textContent = "";
     nextBtn.style.display = "none";
 
     q.options.forEach(option => {
@@ -71,10 +73,16 @@ function selectAnswer(option) {
     // Increase score only once
     if (option === questions[currentQuestion].answer) {
         score++;
+        feedbackEl.textContent = "✅ Correct!";
+        feedbackEl.style.color = "green";
+    } else {
+
+        feedbackEl.textContent = "❌ Incorrect!";
+        feedbackEl.style.color = "red";
     }
 
     nextBtn.style.display = "block";
-}
+} 
 
 nextBtn.onclick = () => {
     currentQuestion++;
