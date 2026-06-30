@@ -18,6 +18,7 @@ const questions = [
 
 let currentQuestion = 0;
 let score = 0;
+let userAnswers = [];
 
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
@@ -47,6 +48,7 @@ function loadQuestion() {
 
 function selectAnswer(option) {
     // Disable all buttons after one answer is chosen
+    userAnswers[currentQuestion] = option;
     const buttons = document.querySelectorAll(".option");
 
     buttons.forEach(button => {
