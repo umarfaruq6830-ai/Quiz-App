@@ -26,6 +26,8 @@ const nextBtn = document.getElementById("next-btn");
 const resultEl = document.getElementById("result");
 const scoreEl = document.getElementById("score");
 const feedbackEl = document.getElementById("feedback")
+const progressBar = document.getElementById("progress-bar");
+const questionNumber = document.getElementById("question-number");
 
 function loadQuestion() {
     const q = questions[currentQuestion];
@@ -35,6 +37,12 @@ function loadQuestion() {
     feedbackEl.textContent = "";
     nextBtn.style.display = "none";
 
+    questionNumber.textContent =
+    `Question ${currentQuestion + 1} of ${questions.length}`;
+
+    progressBar.style.width =
+    `${((currentQuestion + 1) / questions.length) * 100}%`;
+    
     q.options.forEach(option => {
         const btn = document.createElement("button");
         btn.textContent = option;
@@ -97,8 +105,22 @@ nextBtn.onclick = () => {
 function showResult() {
     document.getElementById("quiz").classList.add("hide");
     resultEl.classList.remove("hide");
-    scoreEl.textContent = `${score} / ${questions.length}`;
+    let message = "";
+
+    if(score === questions.length){
+        message = "🎉 Excellent!";
+    }
+    else if(score >= 2){
+        message = "😊 Good Job!";
+    }
+    else{
+        message = "😔 Keep Practicing!";
+    }
+
+    scoreEl.innerHTML =
+    `${message}<br><br>Your Score: ${score} / ${questions.length}`;
 }
+
 
 function restartQuiz() {
     currentQuestion = 0;
